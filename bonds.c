@@ -8,23 +8,26 @@ int main() {
 	LinkedList list;
 	llist_init(list);
 	int *value;	
-	char names[10] = {"Face Value", "Yield Interest","Coupon Interest","n","m","P0","PVA","PV", "CF","PVFA"};
-	for(int i = 0; i < 5; i++) {
-		printf("Input value of %s and press <enter>\n");
-		scanf("%f",&value);
-		llist_add(list,value,names[i]);
+	char *names[10] = {"Face Value", "Yield Interest","Coupon Interest","n","m","P0","PVA","PV", "CF","PVFA"};
+	for(int i = 0; i < 10; i++) {
+		llist_add(list,names[i]);
+		if(i < 5) {
+			printf("Input value of %s and press <enter>. If value is unknown enter value as -1\n",names[i]);
+			scanf("%f",&value);
+			llist_add_value(list,value);
+		}
 		llist_print(list);
 	}
-	llist_add(list,findPVA,"PVA");
-	llist_add(list,findPV()
-
+	llist_findUnknownValues(list);
+	bondPricing();
+	
+	
 
 }
 
 
 
 double bondPricing() {
-	double interest,m,n,cinterest,face,presentValue,cf,pvfa,pva,pv;
 	printf("What are you looking for?\n Choices:\n");
 	for(int i = 0; i < 6; i++) 
 		printf("{%d} %s\n",i+1,names[i]);

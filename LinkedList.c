@@ -26,8 +26,7 @@ void llist_print(LinkedList * list) {
 		return;
 	}
 
-	printf("{");
-
+	printf("Function Values\n");
 	e = list->head;
 	while (e != NULL) {
 		printf("%s = ",e->name);
@@ -37,16 +36,14 @@ void llist_print(LinkedList * list) {
 			printf("\n");
 		}
 	}
-	printf("}\n");
 }
 
 //
-// Appends a new node with this value at the beginning of the list
+// Appends a new node with this name at the beginning of the list
 //
-void llist_add(LinkedList * list, int value, char *name) {
+void llist_add(LinkedList * list, char *name) {
 	// Create new node
 	ListNode * n = (ListNode *) malloc(sizeof(ListNode));
-	n->value = value;
 	n->name = name;
 	// Add at the beginning of the list
 	n->next = list->head;
@@ -65,8 +62,24 @@ int llist_add_value(LinkedList * list, char name, int value) {
 	}
 	return 0;
 }
-	while(
+
+
+//finds unkown values, prints to screen, and stores name to a new LinkedList
 //
+LinkedList *llist_findUnknownValues(LinkedList *list) {
+	ListNode *e = list->head;
+	int hasPrinted = 0;
+	while(e!=NULL) {
+		if(e->value == -1) {
+			printf("%s\n",e->name);
+			hasPrinted =1;
+		}		
+	}
+	if(!hasPrinted) {
+		printf("No unknown values\n");
+	}
+}
+
 // Returns value if the name exists in the list. Otherwise returns NULL
 //
 int llist_exists(LinkedList * list, char *name) {
