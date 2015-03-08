@@ -5,20 +5,22 @@
 
 
 int main() {
-	LinkedList list;
-	llist_init(list);
+	LinkedList mainList;
+	llist_init(mainList);
 	int *value;	
 	char *names[10] = {"Face Value", "Yield Interest","Coupon Interest","n","m","P0","PVA","PV", "CF","PVFA"};
 	for(int i = 0; i < 10; i++) {
-		llist_add(list,names[i]);
+		llist_add(mainList,names[i]);
 		if(i < 5) {
 			printf("Input value of %s and press <enter>. If value is unknown enter value as -1\n",names[i]);
 			scanf("%f",&value);
-			llist_add_value(list,value);
+			llist_add_value(mainList,value);
 		}
 		llist_print(list);
 	}
-	llist_findUnknownValues(list);
+	LinkedList unknowns;
+	llist_int(unknowns);
+	llist_findUnknownValues(mainList);
 	bondPricing();
 	
 	
@@ -27,10 +29,16 @@ int main() {
 
 
 
-double bondPricing() {
+double bondPricing(LinkedList *unknowns, LinkedList *totalList) {
+	ListNode *e = unknowns->head;
+	ListNode *f = totalList->head;
 	printf("What are you looking for?\n Choices:\n");
-	for(int i = 0; i < 6; i++) 
-		printf("{%d} %s\n",i+1,names[i]);
+	for(int i = 6; i < 10; i++) 
+		printf("{%d} %s\n",i-5,names[i]);
+		if(i == 9) {
+			while(e->next!=NULL) 
+				printf("{%d} %s\n",++i-5,e->name);
+	}	
 	sscanf("%d",&ans);
 	pva = findPVFA(interest,m,n)*findCF(face,cinterest,m);
 	switch(ans){
