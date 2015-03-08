@@ -15,8 +15,8 @@ void llist_init(LinkedList * list)
 
 //
 // It prints the elements in the list in the form:
-// 4, 6, 2, 3, 8,7
-//
+// <Type of Value>= <Value>
+// <Type of Value2>= <Value2>
 void llist_print(LinkedList * list) {
 
 	ListNode * e;
@@ -34,7 +34,7 @@ void llist_print(LinkedList * list) {
 		printf("%f", e->value);
 		e = e->next;
 		if (e!=NULL) {
-			printf(", ");
+			printf("\n");
 		}
 	}
 	printf("}\n");
@@ -52,7 +52,20 @@ void llist_add(LinkedList * list, int value, char *name) {
 	n->next = list->head;
 	list->head = n;
 }
+//adds value to existing node specified by its name
+// returns 1 if successful 0 if not
 
+int llist_add_value(LinkedList * list, char name, int value) {
+	ListNode * e = list->head;
+	while(e != NULL) {
+		if(strcmp(e->name,name)==0) {
+			e->value = value;
+			return 1;
+		}
+	}
+	return 0;
+}
+	while(
 //
 // Returns value if the name exists in the list. Otherwise returns NULL
 //
