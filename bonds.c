@@ -41,27 +41,41 @@ double bondPricing(LinkedList *unknowns, LinkedList *totalList) {
 	}	
 	sscanf("%d",&ans);
 	double pvfa = findPVFA(llist_exists(f,"Yield Interest"),llist_exists(f,"m"),llist_exists(f,"n"));
-	double pva = findPVA (llist_exists(f, "CF"),llist_exists(f,"PVFA")
+	double pva = findPVA (llist_exists(f, "CF"),llist_exists(f,"PVFA"));
+	double pv = findPV(llist_exists(f,"Face Value"),llist_exists(f,"Yield Interest"),llist_exists(f,"m"),llist_exists(f,"n"));
 	switch(ans) {
 		case 1:
+			
 }	
+//returns current value or -1 if a value is unknown
+double findP0(double pva, double pv) {
+	if(pva == -1 || pv==-1)
+		return -1;
+	return pva + pv;	
 
-
+//returns CF or -1 if a value is unknown
 double findCF(double face, double couponInterest, double m) {
+	if(face==-1 || couponInterest==-1||m==-1)
+		return -1;
 	cf = face*couponInterest/m;
 	return cf;
 }
-
+// returns PVFA or -1 if a value is unknown
 double findPVFA(double yieldInterest, double m, double n) {
+	if(yieldInterest==-1 || m==-1 || n==-1)
+		return -1;
 	pvfa = (1 - (1/pow(1+(yieldInterest/m),n*m)))/(yieldInterest/m);
-	
 }	
-
+// returns PV or -1 if a value is unknown
 double findPV(double face, double yieldInterest, double m, double n){
+	if(face==-1 || yieldInterest==-1 || m==-1 || n==-1)
+		return -1;	
 	pv = face/pow(1+(yieldInterest/m),n*m);
 	return pv;
 }
-
+// returns PVA or -1 if a value is unknown
 double findPVA(double cf, double pvfa) {
+	if(cf==-1 || pvfa==-1)
+		return -1;
 	return cf*pvfa;
 }
