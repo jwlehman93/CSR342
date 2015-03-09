@@ -6,8 +6,6 @@
 
 int main() {
 	LinkedList mainList;
-	llist_init(mainList);
-	int *value;	
 	char *names[10] = {"Face Value", "Yield Interest","Coupon Interest","n","m","P0","PVA","PV", "CF","PVFA"};
 	for(int i = 0; i < 10; i++) {
 		llist_add(mainList,names[i]);
@@ -32,6 +30,8 @@ int main() {
 double bondPricing(LinkedList *unknowns, LinkedList *totalList) {
 	ListNode *e = unknowns->head;
 	ListNode *f = totalList->head;
+	int ans;
+	double ret;
 	printf("What are you looking for?\n Choices:\n");
 	for(int i = 6; i < 10; i++) 
 		printf("{%d} %s\n",i-5,names[i]);
@@ -40,19 +40,10 @@ double bondPricing(LinkedList *unknowns, LinkedList *totalList) {
 				printf("{%d} %s\n",++i-5,e->name);
 	}	
 	sscanf("%d",&ans);
-	pva = findPVFA(interest,m,n)*findCF(face,cinterest,m);
-	switch(ans){
+	double pvfa = findPVFA(llist_exists(f,"Yield Interest"),llist_exists(f,"m"),llist_exists(f,"n"));
+	double pva = findPVA (llist_exists(f, "CF"),llist_exists(f,"PVFA")
+	switch(ans) {
 		case 1:
-			finalAns = pva + findPV(face,interest,m,n);
-		case 2:
-			finalAns = 
-		
-	}			
-	for(int i = 0; i <= 5;i++) {
-		printf("Enter %s\n",names[i]);
-		sscanf("%f\n",&values[i]);
-	}
-	printf("Present Value = %f, CF = %f",presentValue,cf);
 }	
 
 
@@ -71,3 +62,6 @@ double findPV(double face, double yieldInterest, double m, double n){
 	return pv;
 }
 
+double findPVA(double cf, double pvfa) {
+	return cf*pvfa;
+}
